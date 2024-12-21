@@ -1,39 +1,38 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
-
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+app_autoupdate helps users to donwload and install app update from GitHUb releases.
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
+Download latest update from GitHub releases and install it. Before installing a confirmation dialog will be shown
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+Before using the package make sure there are sufficient permissions added in AndroidManifest.xml
+```xml
+<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+```
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+For using the package configure the app owner and repo in pubspec.yml
 
+```yml
+update_checker:
+  owner: owner
+  repo: repository
+```
+
+Call the widget inside build method
 ```dart
-const like = 'sample';
+AppUpdateWidget(
+    onUpdateComplete: () {
+        setState(() {
+            // Handle update completion
+        });
+    }
+)
 ```
 
 ## Additional information
-
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+Repo url :https://github.com/SanuSanal/app_autoupdate
