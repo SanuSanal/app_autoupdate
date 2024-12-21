@@ -15,17 +15,11 @@ Before using the package make sure there are sufficient permissions added in And
 
 ## Usage
 
-For using the package configure the app owner and repo in pubspec.yml
-
-```yml
-update_checker:
-  owner: owner
-  repo: repository
-```
-
 Call the widget inside build method
 ```dart
 AppUpdateWidget(
+    owner: '<repo-owner>',
+    repo: '<repository-name>',
     onUpdateComplete: () {
         setState(() {
             // Handle update completion

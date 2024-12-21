@@ -7,13 +7,19 @@ import 'package:flutter/material.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:yaml/yaml.dart';
 import 'package:http/http.dart' as http;
 
 class AppUpdateWidget extends StatefulWidget {
-  final VoidCallback onUpdateComplete;
+  final VoidCallback? onUpdateComplete;
+  final String owner;
+  final String repo;
 
-  const AppUpdateWidget({super.key, required this.onUpdateComplete});
+  const AppUpdateWidget({
+    super.key,
+    required this.owner,
+    required this.repo,
+    this.onUpdateComplete,
+  });
 
   @override
   AppUpdateWidgetState createState() => AppUpdateWidgetState();
@@ -32,16 +38,7 @@ class AppUpdateWidgetState extends State<AppUpdateWidget> {
   @override
   void initState() {
     super.initState();
-    _initializeConfiguration().then((_) => _checkForUpdate());
-  }
-
-  Future<void> _initializeConfiguration() async {
-    final String yamlString = await File('pubspec.yaml').readAsString();
-    final yamlMap = loadYaml(yamlString) as YamlMap;
-
-    final updateConfig = yamlMap['update_checker'];
-    owner = updateConfig['owner'] as String;
-    repo = updateConfig['repo'] as String;
+    _checkForUpdate();
   }
 
   Future<void> _checkForUpdate() async {
@@ -84,7 +81,7 @@ class AppUpdateWidgetState extends State<AppUpdateWidget> {
         actions: [
           TextButton(
             onPressed: () {
-              widget.onUpdateComplete();
+              widget.onUpdateComplete!();
               Navigator.of(context).pop();
             },
             child: const Text('Cancel'),
@@ -141,7 +138,7 @@ class AppUpdateWidgetState extends State<AppUpdateWidget> {
       });
     }
 
-    widget.onUpdateComplete();
+    widget.onUpdateComplete!();
   }
 
   Future<UpdateCheckerData> _getLatestReleaseVersion() async {
