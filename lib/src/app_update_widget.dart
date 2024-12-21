@@ -79,7 +79,7 @@ class AppUpdateWidgetState extends State<AppUpdateWidget> {
         actions: [
           TextButton(
             onPressed: () {
-              widget.onUpdateComplete!();
+              widget.onUpdateComplete?.call();
               Navigator.of(context).pop();
             },
             child: const Text('Cancel'),
@@ -136,7 +136,7 @@ class AppUpdateWidgetState extends State<AppUpdateWidget> {
       });
     }
 
-    widget.onUpdateComplete!();
+    widget.onUpdateComplete?.call();
   }
 
   Future<UpdateCheckerData> _getLatestReleaseVersion() async {
