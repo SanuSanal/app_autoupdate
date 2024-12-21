@@ -26,8 +26,6 @@ class AppUpdateWidget extends StatefulWidget {
 }
 
 class AppUpdateWidgetState extends State<AppUpdateWidget> {
-  late String owner;
-  late String repo;
   final Dio _dio = Dio();
 
   bool _isDownloading = false;
@@ -142,7 +140,8 @@ class AppUpdateWidgetState extends State<AppUpdateWidget> {
   }
 
   Future<UpdateCheckerData> _getLatestReleaseVersion() async {
-    final url = 'https://api.github.com/repos/$owner/$repo/releases/latest';
+    final url =
+        'https://api.github.com/repos/${widget.owner}/${widget.repo}/releases/latest';
     try {
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
